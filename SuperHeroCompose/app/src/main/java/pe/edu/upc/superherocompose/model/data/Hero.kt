@@ -10,12 +10,26 @@ data class HeroWrapper(
 data class Hero(
     val name: String,
     val biography: Biography,
-    val image: Image
+    val image: Image,
+    @SerializedName("powerstats")
+    val powerStats: PowerStats,
+)
+
+data class PowerStats(
+    val intelligence: String,
+    val strength: String,
+    val speed: String,
+    val durability: String,
+    val power: String,
+    val combat: String,
 )
 
 data class Biography(
     @SerializedName("full-name")
-    val fullName: String
+    val fullName: String,
+    @SerializedName("place-of-birth")
+    val placeOfBirth: String,
+    val publisher: String
 )
 
 data class Image(
