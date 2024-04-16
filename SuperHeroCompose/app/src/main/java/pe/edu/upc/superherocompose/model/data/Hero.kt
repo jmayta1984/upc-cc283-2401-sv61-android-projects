@@ -8,6 +8,7 @@ data class HeroWrapper(
 )
 
 data class Hero(
+    val id: String,
     val name: String,
     val biography: Biography,
     val image: Image,

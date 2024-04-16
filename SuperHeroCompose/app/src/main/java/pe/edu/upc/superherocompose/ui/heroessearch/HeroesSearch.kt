@@ -34,7 +34,7 @@ import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.repositories.HeroRepository
 
 @Composable
-fun HeroesSearch() {
+fun HeroesSearch(selectHero: (String) -> Unit) {
 
     val heroes = remember {
         mutableStateOf(emptyList<Hero>())
@@ -42,24 +42,24 @@ fun HeroesSearch() {
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             HeroSearch(heroes)
-            HeroList(heroes)
+            HeroList(heroes, selectHero)
         }
     }
 }
 
 @Composable
-fun HeroList(heroes: MutableState<List<Hero>>) {
+fun HeroList(heroes: MutableState<List<Hero>>, selectHero: (String) -> Unit) {
 
     LazyColumn {
         items(heroes.value) { hero ->
-            HeroItem(hero)
+            HeroItem(hero, selectHero)
         }
     }
 
 }
 
 @Composable
-fun HeroItem(hero: Hero) {
+fun HeroItem(hero: Hero, selectHero: (String) -> Unit) {
 
     val isFavorite = remember {
         mutableStateOf(false)
@@ -67,7 +67,9 @@ fun HeroItem(hero: Hero) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(8.dp), onClick = {
+                selectHero(hero.id)
+        }
     ) {
         Row {
             HeroImage(hero.image.url, 92.dp)

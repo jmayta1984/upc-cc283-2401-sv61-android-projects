@@ -25,9 +25,7 @@ import pe.edu.upc.superherocompose.ui.heroessearch.HeroImage
 import pe.edu.upc.superherocompose.ui.theme.SuperHeroComposeTheme
 
 @Composable
-fun HeroDetails() {
-
-    val id = "69"
+fun HeroDetails(id: String) {
 
     val hero = remember {
         mutableStateOf<Hero?>(null)
@@ -81,7 +79,7 @@ fun HeroPowerStats(powerStats: PowerStats) {
 
 @Composable
 fun HeroStat(stat: String, powerStat: String) {
-    Row (verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
         Text(text = stat, modifier = Modifier.weight(1f))
 
         powerStat.toFloatOrNull()?.let {
@@ -123,11 +121,3 @@ fun HeroHeader(name: String) {
     Text(text = name, style = MaterialTheme.typography.headlineLarge)
 }
 
-
-@Preview
-@Composable
-fun HeroDetailsPreview() {
-    SuperHeroComposeTheme {
-        HeroDetails()
-    }
-}
