@@ -34,14 +34,12 @@ import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.repositories.HeroRepository
 
 @Composable
-fun HeroesSearch(selectHero: (String) -> Unit) {
+fun HeroesSearch(search: MutableState<String>,heroes: MutableState<List<Hero>>, selectHero: (String) -> Unit) {
 
-    val heroes = remember {
-        mutableStateOf(emptyList<Hero>())
-    }
+
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            HeroSearch(heroes)
+            HeroSearch(search, heroes)
             HeroList(heroes, selectHero)
         }
     }
@@ -100,11 +98,9 @@ fun HeroImage(url: String, size: Dp) {
 }
 
 @Composable
-fun HeroSearch(heroes: MutableState<List<Hero>>) {
+fun HeroSearch(search: MutableState<String>,heroes: MutableState<List<Hero>>) {
 
-    val search = remember {
-        mutableStateOf("")
-    }
+
     OutlinedTextField(
         value = search.value,
         onValueChange = {
