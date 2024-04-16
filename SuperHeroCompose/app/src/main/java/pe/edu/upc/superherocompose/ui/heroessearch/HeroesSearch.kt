@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
 import pe.edu.upc.superherocompose.model.data.Hero
@@ -69,7 +70,7 @@ fun HeroItem(hero: Hero) {
             .padding(8.dp)
     ) {
         Row {
-            HeroImage(hero.image.url)
+            HeroImage(hero.image.url, 92.dp)
             Column(
                 modifier = Modifier
                     .padding(4.dp)
@@ -92,8 +93,8 @@ fun HeroItem(hero: Hero) {
 }
 
 @Composable
-fun HeroImage(url: String) {
-    GlideImage(imageModel = { url }, modifier = Modifier.size(92.dp))
+fun HeroImage(url: String, size: Dp) {
+    GlideImage(imageModel = { url }, modifier = Modifier.size(size),)
 }
 
 @Composable
