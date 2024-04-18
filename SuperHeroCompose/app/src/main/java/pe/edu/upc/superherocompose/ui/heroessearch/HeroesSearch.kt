@@ -30,11 +30,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
+import pe.edu.upc.superherocompose.factories.HeroRepositoryFactory
 import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.repositories.HeroRepository
 
 @Composable
-fun HeroesSearch(search: MutableState<String>,heroes: MutableState<List<Hero>>, selectHero: (String) -> Unit) {
+fun HeroesSearch(
+    search: MutableState<String>,
+    heroes: MutableState<List<Hero>>,
+    selectHero: (String) -> Unit
+) {
 
 
     Scaffold { paddingValues ->
@@ -62,11 +67,13 @@ fun HeroItem(hero: Hero, selectHero: (String) -> Unit) {
     val isFavorite = remember {
         mutableStateOf(false)
     }
+
+    val heroRepository = HeroRepositoryFactory.getHeroRepository()
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp), onClick = {
-                selectHero(hero.id)
+            selectHero(hero.id)
         }
     ) {
         Row {
@@ -81,6 +88,10 @@ fun HeroItem(hero: Hero, selectHero: (String) -> Unit) {
             }
             IconButton(onClick = {
                 isFavorite.value = !isFavorite.value
+
+                if (isFavorite.value) heroRepository.insertHero(hero.id) else heroRepository.deleteHero(
+                    hero.id
+                )
             }, modifier = Modifier.weight(1f)) {
                 Icon(
                     Icons.Filled.Favorite,
@@ -94,12 +105,13 @@ fun HeroItem(hero: Hero, selectHero: (String) -> Unit) {
 
 @Composable
 fun HeroImage(url: String, size: Dp) {
-    GlideImage(imageModel = { url }, modifier = Modifier.size(size),)
+    GlideImage(imageModel = { url }, modifier = Modifier.size(size))
 }
 
 @Composable
-fun HeroSearch(search: MutableState<String>,heroes: MutableState<List<Hero>>) {
+fun HeroSearch(search: MutableState<String>, heroes: MutableState<List<Hero>>) {
 
+    val heroRepository = HeroRepositoryFactory.getHeroRepository()
 
     OutlinedTextField(
         value = search.value,
@@ -117,7 +129,7 @@ fun HeroSearch(search: MutableState<String>,heroes: MutableState<List<Hero>>) {
             imeAction = ImeAction.Search
         ),
         keyboardActions = KeyboardActions(onSearch = {
-            HeroRepository().getHeroes(search.value) {
+            heroRepository.getHeroes(search.value) {
                 heroes.value = it
             }
         }),

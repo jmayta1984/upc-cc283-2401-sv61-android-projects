@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import pe.edu.upc.superherocompose.factories.HeroRepositoryFactory
 import pe.edu.upc.superherocompose.model.data.Biography
 import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.model.data.PowerStats
@@ -31,7 +32,8 @@ fun HeroDetails(id: String) {
         mutableStateOf<Hero?>(null)
     }
 
-    HeroRepository().getHeroById(id) {
+    val heroRepository = HeroRepositoryFactory.getHeroRepository()
+    heroRepository.getHeroById(id) {
         hero.value = it
     }
 

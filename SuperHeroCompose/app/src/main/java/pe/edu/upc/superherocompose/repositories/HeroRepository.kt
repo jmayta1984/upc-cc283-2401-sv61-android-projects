@@ -1,15 +1,31 @@
 package pe.edu.upc.superherocompose.repositories
 
 import android.util.Log
+import pe.edu.upc.superherocompose.factories.HeroDaoFactory
 import pe.edu.upc.superherocompose.factories.HeroServiceFactory
 import pe.edu.upc.superherocompose.model.data.Hero
 import pe.edu.upc.superherocompose.model.data.HeroWrapper
+import pe.edu.upc.superherocompose.model.local.HeroDao
+import pe.edu.upc.superherocompose.model.local.HeroEntity
 import pe.edu.upc.superherocompose.model.remote.HeroService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HeroRepository(private val heroService: HeroService = HeroServiceFactory.getHeroService()) {
+class HeroRepository(
+    private val heroService: HeroService,
+    private val heroDao: HeroDao
+) {
+
+    fun insertHero(id: String) {
+        val heroEntity = HeroEntity(id = id)
+        heroDao.insert(heroEntity)
+    }
+
+    fun deleteHero(id: String) {
+        val heroEntity = HeroEntity(id = id)
+        heroDao.delete(heroEntity)
+    }
 
     fun getHeroes(name: String, callback: (List<Hero>) -> Unit) {
         val getHeroes = heroService.getHeroes(name)

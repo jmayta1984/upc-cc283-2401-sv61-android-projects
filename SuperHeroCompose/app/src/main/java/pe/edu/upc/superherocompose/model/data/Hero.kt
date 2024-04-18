@@ -14,6 +14,7 @@ data class Hero(
     val image: Image,
     @SerializedName("powerstats")
     val powerStats: PowerStats,
+    val isFavorite: Boolean = false
 )
 
 data class PowerStats(
