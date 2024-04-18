@@ -27,13 +27,23 @@ class HeroRepository(
         heroDao.delete(heroEntity)
     }
 
+
+    fun isFavorite(id: String): Boolean {
+
+        return (heroDao.fetchById(id) != null)
+    }
+
     fun getHeroes(name: String, callback: (List<Hero>) -> Unit) {
         val getHeroes = heroService.getHeroes(name)
 
         getHeroes.enqueue(object : Callback<HeroWrapper> {
             override fun onResponse(call: Call<HeroWrapper>, response: Response<HeroWrapper>) {
                 if (response.isSuccessful) {
-                    callback(response.body()?.heroes ?: emptyList())
+                    val heroes = response.body()?.heroes ?: emptyList()
+                    for (hero in heroes) {
+                        hero.isFavorite = isFavorite(hero.id)
+                    }
+                    callback(heroes)
                 }
             }
 

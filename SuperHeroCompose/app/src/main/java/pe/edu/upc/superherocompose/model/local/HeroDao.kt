@@ -16,5 +16,5 @@ interface HeroDao {
     fun fetchAll(): List<HeroEntity>
 
     @Query("select * from heroes where id=:id")
-    fun fetchById(id: String): HeroEntity
+    fun fetchById(id: String): HeroEntity?
 }
