@@ -41,7 +41,7 @@ fun SignUpScreen() {
             InputTextField(input = username, placeholder = "Username")
             PasswordTextField(input = password, placeholder = "Password")
             PasswordTextField(input = confirmPassword, placeholder = "Confirm password")
-            CustomButton(text = "Sign up")
+            CustomButton(text = "Sign up") {}
         }
     }
 }

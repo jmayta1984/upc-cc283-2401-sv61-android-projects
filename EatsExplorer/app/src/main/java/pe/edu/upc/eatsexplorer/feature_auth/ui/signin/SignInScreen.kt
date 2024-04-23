@@ -19,7 +19,7 @@ import pe.edu.upc.eatsexplorer.shared.ui.PasswordTextField
 import pe.edu.upc.eatsexplorer.ui.theme.EatsExplorerTheme
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navigateTo: () -> Unit) {
     Scaffold { paddingValues ->
         val username = remember {
             mutableStateOf("")
@@ -36,17 +36,9 @@ fun SignInScreen() {
         ) {
             InputTextField(input = username, placeholder = "Username")
             PasswordTextField(input = password, placeholder = "Password")
-            CustomButton(text = "Sign in")
-            CustomButton(text = "Sign up")
+            CustomButton(text = "Sign in") {}
+            CustomButton(text = "Sign up", navigateTo)
 
         }
-    }
-}
-
-@Preview
-@Composable
-fun SigInScreenPreview() {
-    EatsExplorerTheme {
-        SignInScreen()
     }
 }

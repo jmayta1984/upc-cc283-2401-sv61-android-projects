@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CustomButton(text: String){
+fun CustomButton(text: String, onclick: () -> Unit) {
     Button(
         modifier = Modifier.fillMaxWidth(),
-        onClick = { /*TODO*/ }) {
+        onClick = { onclick() }) {
         Text(text = text)
     }
 }
