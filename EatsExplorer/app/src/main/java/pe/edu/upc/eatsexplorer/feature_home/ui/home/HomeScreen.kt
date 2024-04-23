@@ -19,7 +19,9 @@ fun HomeScreen() {
         }
 
         composable("SignUp") {
-            SignUpScreen()
+            SignUpScreen() {
+                navController.navigate("Restaurants")
+            }
         }
     }
 }
