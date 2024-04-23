@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import pe.edu.upc.eatsexplorer.shared.ui.CustomButton
 import pe.edu.upc.eatsexplorer.shared.ui.InputTextField
 import pe.edu.upc.eatsexplorer.shared.ui.PasswordTextField
 
@@ -40,6 +41,7 @@ fun SignUpScreen() {
             InputTextField(input = username, placeholder = "Username")
             PasswordTextField(input = password, placeholder = "Password")
             PasswordTextField(input = confirmPassword, placeholder = "Confirm password")
+            CustomButton(text = "Sign up")
         }
     }
 }

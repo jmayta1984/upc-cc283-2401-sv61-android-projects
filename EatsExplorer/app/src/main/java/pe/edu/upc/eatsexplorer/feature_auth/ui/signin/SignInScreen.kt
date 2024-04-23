@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import pe.edu.upc.eatsexplorer.shared.ui.CustomButton
 import pe.edu.upc.eatsexplorer.shared.ui.InputTextField
 import pe.edu.upc.eatsexplorer.shared.ui.PasswordTextField
 import pe.edu.upc.eatsexplorer.ui.theme.EatsExplorerTheme
@@ -35,11 +36,9 @@ fun SignInScreen() {
         ) {
             InputTextField(input = username, placeholder = "Username")
             PasswordTextField(input = password, placeholder = "Password")
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { /*TODO*/ }) {
-                Text(text = "Sign in")
-            }
+            CustomButton(text = "Sign in")
+            CustomButton(text = "Sign up")
+
         }
     }
 }
