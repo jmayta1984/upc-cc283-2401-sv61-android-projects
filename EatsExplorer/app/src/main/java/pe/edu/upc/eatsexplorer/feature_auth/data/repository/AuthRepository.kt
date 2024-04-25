@@ -24,7 +24,8 @@ class AuthRepository(private val authService: AuthService = AuthServiceFactory.g
             override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
                 t.message?.let {
                     Log.d("AuthRepository", it)
-                }            }
+                }
+            }
         })
     }
 
