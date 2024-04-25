@@ -1,6 +1,8 @@
 package pe.edu.upc.eatsexplorer.feature_restaurant.data.repository
 
 import android.util.Log
+import pe.edu.upc.eatsexplorer.feature_restaurant.data.local.RestaurantDao
+import pe.edu.upc.eatsexplorer.feature_restaurant.data.local.RestaurantDaoFactory
 import pe.edu.upc.eatsexplorer.feature_restaurant.data.remote.RestaurantService
 import pe.edu.upc.eatsexplorer.feature_restaurant.data.remote.RestaurantServiceFactory
 import pe.edu.upc.eatsexplorer.feature_restaurant.data.remote.RestaurantsResponse
@@ -10,7 +12,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RestaurantRepository(private val restaurantService: RestaurantService = RestaurantServiceFactory.getRestaurantService()) {
+class RestaurantRepository(
+    private val restaurantService: RestaurantService = RestaurantServiceFactory.getRestaurantService(),
+    private val restaurantDao: RestaurantDao = RestaurantDaoFactory.getRestaurantDao()
+) {
 
     fun getAll(callback: (Restaurants) -> Unit) {
         val getAll = restaurantService.getAll()
