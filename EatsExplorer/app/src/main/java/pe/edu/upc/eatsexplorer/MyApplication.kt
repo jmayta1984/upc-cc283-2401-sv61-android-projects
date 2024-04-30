@@ -5,7 +5,6 @@ import android.content.Context
 
 class MyApplication : Application() {
 
-
     override fun onCreate() {
         super.onCreate()
         application = this

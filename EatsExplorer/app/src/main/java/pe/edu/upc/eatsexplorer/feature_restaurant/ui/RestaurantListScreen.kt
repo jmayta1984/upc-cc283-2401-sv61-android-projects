@@ -38,17 +38,23 @@ fun RestaurantListScreen(
     Scaffold { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             items(restaurants.value) { restaurant ->
-                RestaurantItem(restaurant)
+                RestaurantItem(restaurant,
+                    insert = {
+                        restaurantRepository.insert(it)
+                    }, delete = {
+                        restaurantRepository.delete(it)
+                    })
             }
         }
     }
 }
 
 @Composable
-fun RestaurantItem(restaurant: Restaurant) {
+fun RestaurantItem(restaurant: Restaurant, insert: (Int) -> Unit, delete: (Int) -> Unit) {
     val isFavorite = remember {
-        mutableStateOf(false)
+        mutableStateOf(restaurant.isFavorite)
     }
+
 
     Card(modifier = Modifier.padding(4.dp)) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -60,7 +66,16 @@ fun RestaurantItem(restaurant: Restaurant) {
             )
             IconButton(
                 modifier = Modifier.weight(1f),
-                onClick = { isFavorite.value = !isFavorite.value }) {
+                onClick = {
+
+                    isFavorite.value = !isFavorite.value
+                    restaurant.isFavorite = isFavorite.value
+                    if (isFavorite.value) {
+                        insert(restaurant.id)
+                    } else {
+                        delete(restaurant.id)
+                    }
+                }) {
                 Icon(
                     Icons.Filled.Favorite,
                     "Favorito",
